@@ -30,7 +30,7 @@ jobs:
     - name: Get existing release body
       id: get_release_body
       run: |
-        echo "::set-output name=body::$(curl -s -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref_path }} | jq -r '.body')"
+        echo "::set-output name=body::$(curl -s -H 'Authorization: Bearer ${{ secrets.GH_TOKEN }}' https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ github.ref_path }} | jq -r '.body')"
 
     - name: Upload release artifact
       uses: svenstaro/upload-release-action@v2
@@ -40,4 +40,4 @@ jobs:
         tag: ${{ github.ref }}
         body: |
           ${{ steps.get_release_body.outputs.body }}
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        repo_token: ${{ secrets.GH_TOKEN }}
